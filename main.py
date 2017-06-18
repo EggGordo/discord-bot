@@ -22,7 +22,7 @@ async def roll(ctx, member: discord.Member = None):
         number = random.randint(1, 20)
 
     await bot.say('{0.mention}'.format(member) + ' ' + str(number))
-    
+
 @bot.command(pass_context = True)
 async def smug(ctx):
     """posts smug anime girls"""

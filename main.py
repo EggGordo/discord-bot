@@ -15,13 +15,17 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-@bot.command(pass_context=True)
-async def roll(ctx, member: discord.Member = None):
-    if member is None:
-        member = ctx.message.author
-        number = random.randint(1, 20)
+@bot.command(pass_context = True)
+async def roll(ctx, dice : str):
+    """Rolls a dice in NdN format."""
+    try:
+        rolls, limit = map(int, dice.split('d'))
+    except Exception:
+        await bot.say('Format has to be in NdN!')
+        return
 
-    await bot.say('{0.mention}'.format(member) + ' ' + str(number))
+    result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
+    await bot.say('{0.mention}'.format(ctx.message.author) + ' ' + result)
 
 @bot.command(pass_context = True)
 async def smug(ctx):

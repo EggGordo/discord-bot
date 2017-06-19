@@ -35,4 +35,5 @@ async def smug(ctx):
 
 token_file = open("token",'r')
 token = token_file.read().replace("\n", "")
+token_file.close()
 bot.run(token)

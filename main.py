@@ -3,6 +3,7 @@ from discord.ext import commands
 import random
 import sys
 import smug_anime
+import asyncio
 
 description = """An example bot to showcase the discord.ext.commands extension
 module.
@@ -33,6 +34,21 @@ async def roll(ctx, dice : str):
 async def smug(ctx):
     """posts smug anime girls"""
     await bot.send_file(ctx.message.channel, "images/" + smug_anime.random_pick("images"))
+
+if not discord.opus.is_loaded():
+    # the 'opus' library here is opus.dll on windows
+    # or libopus.so on linux in the current directory
+    # you should replace this with the location the
+    # opus library is located in and with the proper filename.
+    # note that on windows this DLL is automatically provided for you
+    discord.opus.load_opus('opus')
+
+@bot.command(pass_context = True)
+async def play(ctx, url):
+    """play videos"""
+    voice = await bot.join_voice_channel(ctx.message.author.voice_channel)
+    player = await voice.create_ytdl_player(url)
+    player.start()
 
 token_file = open("token")
 token = token_file.read().replace('\n', '')

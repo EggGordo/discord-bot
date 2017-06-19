@@ -36,6 +36,27 @@ async def smug(ctx):
     """posts smug anime girls"""
     await bot.send_file(ctx.message.channel, "images/" + smug_anime.random_pick("images"))
 
+@bot.command(pass_context = True)
+async def insult(self, user : discord.Member):
+    """insult bitches"""
+    insults = ("You boob!",
+         "They should call you wimp-lash!",
+         "I could write a book about what you don't know!",
+         "taps on head Just as I suspected - hollow!",
+         "You metal munching moron!",
+         "You overgrown alley cat!",
+         "You pathetic pile of pitiful pinheads!",
+         "You tin-tongued dolt!",
+         "Bunglar!",
+         "Dolt!",
+         "Half wit!",
+         "You couldn't even beat a motely group of gnomes!",
+         "You flea-bitten fur brain!",
+         "I'll cover my throne with your hide!"
+        )
+    insult = random.choice(insults)
+    await bot.say(user.mention + " " + insult)
+
 token_file = open("token")
 token = token_file.read().replace('\n', '')
 token_file.close()

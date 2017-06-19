@@ -39,7 +39,7 @@ async def smug(ctx):
 @bot.command(pass_context = True)
 async def insult(self, user : discord.Member):
     """insult bitches"""
-    insults = ("You boob!",
+    insult = ("You boob!",
          "They should call you wimp-lash!",
          "I could write a book about what you don't know!",
          "taps on head Just as I suspected - hollow!",
@@ -54,8 +54,7 @@ async def insult(self, user : discord.Member):
          "You flea-bitten fur brain!",
          "I'll cover my throne with your hide!"
         )
-    insult = random.choice(insults)
-    await bot.say(user.mention + " " + insult)
+    await bot.say(user.mention + " " + random.choice(insult))
 
 token_file = open("token")
 token = token_file.read().replace('\n', '')

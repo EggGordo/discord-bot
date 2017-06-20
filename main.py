@@ -18,6 +18,7 @@ async def on_ready():
     print(bot.user.id)
     print("Invite URL: https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot")
     print("------")
+    await bot.change_presence(game=discord.Game(name='https://github.com/GhostSquad57/discord-bot'))
 
 @bot.command(pass_context = True)
 async def roll(ctx, dice : str):
@@ -55,6 +56,13 @@ async def insult(self, user : discord.Member):
          "I'll cover my throne with your hide!"
         )
     await bot.say(user.mention + " " + random.choice(insult))
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+    if message.content.startswith('OpenBSD'):
+        await bot.add_reaction(message=message, emoji=':aids:326463585968455680')
 
 token_file = open("token")
 token = token_file.read().replace('\n', '')

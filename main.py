@@ -9,7 +9,7 @@ import music
 description = """An example bot to showcase the discord.ext.commands extension
 module.
 There are a number of utility commands being showcased here."""
-bot = commands.Bot(command_prefix='#', description=description)
+bot = commands.Bot(command_prefix='$', description=description)
 bot.add_cog(music.Music(bot))
 
 @bot.event

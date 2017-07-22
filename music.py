@@ -56,7 +56,6 @@ class VoiceState:
         while True:
             self.play_next_song.clear()
             self.current = await self.songs.get()
-            await self.bot.send_message(self.current.channel, 'Now playing ' + str(self.current))
             self.current.player.start()
             await self.play_next_song.wait()
 
@@ -146,7 +145,6 @@ class Music:
         else:
             player.volume = 0.6
             entry = VoiceEntry(ctx.message, player)
-            await self.bot.say('Enqueued ' + str(entry))
             await state.songs.put(entry)
 
     @commands.command(pass_context=True, no_pm=True)

@@ -20,30 +20,41 @@ async def on_ready():
     print("Invite URL: https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot")
     print("------")
     await bot.change_presence(game=discord.Game(name='github.com/GhostSquad57/discord-bot'))
-
-@bot.command(pass_context = True)
-async def roll(ctx, dice : str):
-    """Rolls a dice in NdN+N format. Modifier can be omitted"""
     
-    modifier = 0
+@bot.command(pass_context = True)
+async def roll(ctx, dice : str = "1d20"):
+    """Rolls a dice in NdN+N format. Modifier can be omitted."""
     
     if dice.lower() == "help":
-        await bot.say("The roll command takes an attribute in the NdN format where the first N is the number of dice thrown and the second the number of sides on the dice. An optional modifier can also be added with the + or - character and a number.")
+        await bot.say("The roll command takes an attribute in the NdN format where the first N is the number of dice thrown and the second the number of sides on the dice. An optional modifier can also be added with the + or - character and a number. If no argument is given a single d20 will be rolled.")
         return
-    try:
-        rolls, limit, modifier = map(int, re.split("[d\+-]+", dice))
-    except:
+    
+    if dice.find('+') != -1:
         try:
-            rolls, limit = map(int, dice.split('d'))
-        except Exception:
+            dice, modifier = dice.split('+')
+            modifier = int(modifier)
+        except:
             await bot.say("Format has to be in NdN(+N)!")
             return
-    
-    if "-" in dice:
-        modifier = -modifier
+    elif dice.find('-') != -1:
+        try:
+            dice, modifier = dice.split('-')
+            modifier = -int(modifier)
+        except:
+            await bot.say("Format has to be in NdN(+N)!")
+            return
+    else:
+        modifier = 0
+        
+    try:
+        rolls, limit = map(int, dice.split('d'))
+    except:
+            await bot.say("Format has to be in NdN(+N)!")
+            return
 
     result = ", ".join(str(random.randint(1, limit) + modifier) for r in range(rolls))
     await bot.say('{0.mention}'.format(ctx.message.author) + ' ' + result)
+
 
 @bot.command(pass_context = True)
 async def smug(ctx):

@@ -29,14 +29,14 @@ async def roll(ctx, dice : str = "1d20"):
         await bot.say("The roll command takes an attribute in the NdN format where the first N is the number of dice thrown and the second the number of sides on the dice. An optional modifier can also be added with the + or - character and a number. If no argument is given a single d20 will be rolled.")
         return
     
-    if dice.find('+') != -1:
+    if '+' in dice:
         try:
             dice, modifier = dice.split('+')
             modifier = int(modifier)
         except:
             await bot.say("Format has to be in NdN(+N)!")
             return
-    elif dice.find('-') != -1:
+    elif '-' in dice:
         try:
             dice, modifier = dice.split('-')
             modifier = -int(modifier)
@@ -83,7 +83,7 @@ async def insult(self, user : discord.Member):
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith('OpenBSD'):
+    if "openbsd" in message.content.lower():
         await bot.add_reaction(message=message, emoji=':aids:326463585968455680')
     await bot.process_commands(message)
 

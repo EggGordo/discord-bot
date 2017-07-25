@@ -85,8 +85,7 @@ async def insult(self, user : discord.Member):
 async def on_message(message):
     if "openbsd" in message.content.lower():
         await bot.add_reaction(message=message, emoji=':aids:326463585968455680')
-    await bot.process_commands(message)
-    if "anime" in message.content.lower():
+    elif "anime" in message.content.lower():
         await bot.add_reaction(message=message, emoji=':anime:306845425246273537')
     await bot.process_commands(message)
 
